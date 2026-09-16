@@ -1,0 +1,69 @@
+// COLORS
+$primary: #188274;
+$secondary: #8B95C9;
+$dark: #2D3047;
+$light: #EFF1ED;
+
+// BOOTSTRAP OVERRIDES
+$body-bg: $light;
+$body-color: $dark;
+
+$card-bg: white;
+$border-color: $secondary;
+
+$input-bg: white;
+$input-color: $dark;
+$input-border-color: $secondary;
+
+$modal-content-bg: white;
+
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+header,
+footer {
+    background-color: $dark;
+    color: $light;
+}
+
+footer {
+    .footer-logo {
+        height: 45px;
+        width: auto;
+        object-fit: contain;
+    }
+}
+
+
+.inventory-card {
+    transition: transform .2s;
+
+    &:hover {
+        transform: translateY(-3px);
+    }
+
+    .card-img-top {
+        width: 100%;
+        aspect-ratio: 5 / 7;
+        object-fit: cover;
+    }
+}
+
+
+.filters {
+    background-color: $light;
+
+    .btn-outline-secondary {
+        background-color: $white;
+    }
+}
+
+
+.nav-tabs {
+    .nav-link {
+        color: $dark;
+
+        &.active {
+            color: $primary;
+        }
+    }
+}

@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Inventory | Magic Stash</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+    <!-- HEADER -->
+    <header class="border-bottom">
+        <div class="container py-3">
+            <div class="d-flex align-items-center gap-3">
+                <a href="index.html">
+                    <img src="images/mtg.png" alt="Magic Stash Logo" width="70" height="70">
+                </a>
+                <div>
+                    <h1 class="h4 mb-0">Magic Stash</h1>
+                    <p class="small text-body-secondary mb-0">Card & Deck Inventory</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container py-4 flex-grow-1">
+
+        <!-- CARDS + DECKS TABS -->
+        <ul class="nav nav-tabs mb-4" role="tablist">
+            <li class="nav-item">
+                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#cardsTab" type="button">
+                    Cards
+                </button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#decksTab" type="button">
+                    Decks
+                </button>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+
+            <!-- CARDS TAB -->
+            <div class="tab-pane fade show active" id="cardsTab">
+
+                <!-- SEARCH / ADD CARD -->
+                <div class="row mb-4">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-9">
+                        <div class="d-flex gap-3">
+                            <div class="input-group w-75">
+                                <span class="input-group-text">⌕</span>
+                                <input type="search" class="form-control" placeholder="Search your cards">
+                            </div>
+                            <button class="btn btn-primary flex-shrink-0" type="button" data-bs-toggle="modal"
+                                data-bs-target="#addCardModal">
+                                + Add Card
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FILTERS / CARDS -->
+                <div class="row gx-3">
+
+                    <!-- CARD FILTERS -->
+                    <div class="col-lg-3 mb-4">
+                        <div class="filters border p-3">
+                            <h2 class="h5">Filters</h2>
+
+                            <div class="mt-3">
+                                <button
+                                    class="btn btn-outline-secondary w-100 text-start d-flex justify-content-between"
+                                    type="button" data-bs-toggle="collapse" data-bs-target="#colorFilter">
+                                    <span>Color</span>
+                                    <span>▼</span>
+                                </button>
+
+                                <div class="collapse" id="colorFilter">
+                                    <div class="border border-top-0 p-3">
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="checkbox" id="white">
+                                            <label class="form-check-label" for="white">White</label>
+                                        </div>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="checkbox" id="blue">
+                                            <label class="form-check-label" for="blue">Blue</label>
+                                        </div>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="checkbox" id="black">
+                                            <label class="form-check-label" for="black">Black</label>
+                                        </div>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="checkbox" id="red">
+                                            <label class="form-check-label" for="red">Red</label>
+                                        </div>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="checkbox" id="green">
+                                            <label class="form-check-label" for="green">Green</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="colorless">
+                                            <label class="form-check-label" for="colorless">Colorless</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row g-2 mt-1">
+                                <div class="col-6">
+                                    <button
+                                        class="btn btn-outline-secondary w-100 text-start d-flex justify-content-between"
+                                        type="button" data-bs-toggle="collapse" data-bs-target="#supertypeFilter">
+                                        <span>Supertype</span>
+                                        <span>▼</span>
+                                    </button>
+
+                                    <div class="collapse" id="supertypeFilter">
+                                        <div class="border border-top-0 p-3">
+                                            <div class="form-check mb-2">
+                                                <input class="form-check-input" type="checkbox" id="legendary">
+                                                <label class="form-check-label" for="legendary">Legendary</label>
+                                            </div>
+                                            <div class="form-check mb-2">
+                                                <input class="form-check-input" type="checkbox" id="basic">
+                                                <label class="form-check-label" for="basic">Basic</label>
+                                            </div>
+                                            <div class="form-check mb-2">
+                                                <input class="form-check-input" type="checkbox" id="snow">
+                                                <label class="form-check-label" for="snow">Snow</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="world">
+                                                <label class="form-check-label" for="world">World</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-6">
+                                    <button
+                                        class="btn btn-outline-secondary w-100 text-start d-flex justify-content-between"
+                                        type="button" data-bs-toggle="collapse" data-bs-target="#typeFilter">
+                                        <span>Type</span>
+                                        <span>▼</span>
+                                    </button>
+
+                                    <div class="collapse" id="typeFilter">
+                                        <div class="border border-top-0 p-3">
+                                            <div class="form-check mb-2">
+                                                <input class="form-check-input" type="checkbox" id="creature">
+                                                <label class="form-check-label" for="creature">Creature</label>
+                                            </div>
+                                            <div class="form-check mb-2">
+                                                <input class="form-check-input" type="checkbox" id="artifact">
+                                                <label class="form-check-label" for="artifact">Artifact</label>
+                                            </div>
+                                            <div class="form-check mb-2">
+                                                <input class="form-check-input" type="checkbox" id="enchantment">
+                                                <label class="form-check-label" for="enchantment">Enchantment</label>
+                                            </div>
+                                            <div class="form-check mb-2">
+                                                <input class="form-check-input" type="checkbox" id="instant">
+                                                <label class="form-check-label" for="instant">Instant</label>
+                                            </div>
+                                            <div class="form-check mb-2">
+                                                <input class="form-check-input" type="checkbox" id="sorcery">
+                                                <label class="form-check-label" for="sorcery">Sorcery</label>
+                                            </div>
+                                            <div class="form-check mb-2">
+                                                <input class="form-check-input" type="checkbox" id="land">
+                                                <label class="form-check-label" for="land">Land</label>
+                                            </div>
+                                            <div class="form-check mb-2">
+                                                <input class="form-check-input" type="checkbox" id="planeswalker">
+                                                <label class="form-check-label" for="planeswalker">Planeswalker</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="battle">
+                                                <label class="form-check-label" for="battle">Battle</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <label class="form-label mt-3">Series</label>
+                            <select class="form-select">
+                                <option>All Series</option>
+                                <option>Foundations</option>
+                                <option>Dominaria United</option>
+                                <option>Modern Horizons 3</option>
+                            </select>
+
+                            <label class="form-label mt-3">Rarity</label>
+                            <select class="form-select">
+                                <option>All Rarities</option>
+                                <option>Common</option>
+                                <option>Uncommon</option>
+                                <option>Rare</option>
+                                <option>Mythic Rare</option>
+                            </select>
+
+                            <label class="form-label mt-3">Finish</label>
+                            <select class="form-select">
+                                <option>All Finishes</option>
+                                <option>Nonfoil</option>
+                                <option>Foil</option>
+                                <option>Etched</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <section class="col-lg-9">
+                        <div class="row g-3">
+
+                            <!-- SOL RING -->
+                            <div class="col-6 col-md-4 col-xl-3">
+                                <div class="card inventory-card h-100">
+                                    <a href="card-view.html" class="card-view-link">
+                                        <img src="images/sol-ring.jpg" class="card-img-top" alt="Sol Ring">
+                                    </a>
+                                    <div class="card-body d-flex flex-column">
+                                        <h3 class="h6 mb-1">Sol Ring</h3>
+                                        <p class="small text-body-secondary mb-2">Artifact</p>
+                                        <p class="small mb-3">Qty: 4</p>
+                                        <div class="mt-auto text-end">
+                                            <a href="card.html" class="btn btn-primary btn-sm">Edit</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- LIGHTNING BOLT -->
+                            <div class="col-6 col-md-4 col-xl-3">
+                                <div class="card inventory-card h-100">
+                                    <a href="card-view.html" class="card-view-link">
+                                        <img src="images/lightning-bolt.jpg" class="card-img-top">
+                                    </a>
+                                    <div class="card-body d-flex flex-column">
+                                        <h3 class="h6 mb-1">Lightning Bolt</h3>
+                                        <p class="small text-body-secondary mb-2">Instant</p>
+                                        <p class="small mb-3">Qty: 3</p>
+                                        <div class="mt-auto text-end">
+                                            <a href="card.html" class="btn btn-primary btn-sm">Edit</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- COMMAND TOWER -->
+                            <div class="col-6 col-md-4 col-xl-3">
+                                <div class="card inventory-card h-100">
+                                    <a href="card-view.html" class="card-view-link">
+                                        <img src="images/command-tower.jpg" class="card-img-top" alt="Command Tower">
+                                    </a>
+                                    <div class="card-body d-flex flex-column">
+                                        <h3 class="h6 mb-1">Command Tower</h3>
+                                        <p class="small text-body-secondary mb-2">Land</p>
+                                        <p class="small mb-3">Qty: 2</p>
+                                        <div class="mt-auto text-end">
+                                            <a href="card.html" class="btn btn-primary btn-sm">Edit</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- FEASTING HOBBIT -->
+                            <div class="col-6 col-md-4 col-xl-3">
+                                <div class="card inventory-card h-100">
+                                    <a href="card-view.html" class="card-view-link">
+                                        <img src="images/feasting-hobbit.png" class="card-img-top"
+                                            alt="Feasting Hobbit">
+                                    </a>
+                                    <div class="card-body d-flex flex-column">
+                                        <h3 class="h6 mb-1">Feasting Hobbit</h3>
+                                        <p class="small text-body-secondary mb-2">Creature</p>
+                                        <p class="small mb-3">Qty: 1</p>
+                                        <div class="mt-auto text-end">
+                                            <a href="card.html" class="btn btn-primary btn-sm">Edit</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- VIVI ORNITIER -->
+                            <div class="col-6 col-md-4 col-xl-3">
+                                <div class="card inventory-card h-100">
+                                    <a href="card-view.html" class="card-view-link">
+                                        <img src="images/vivi-ornitter.jpg" class="card-img-top" alt="Vivi Ornitier">
+                                    </a>
+                                    <div class="card-body d-flex flex-column">
+                                        <h3 class="h6 mb-1">Vivi Ornitier</h3>
+                                        <p class="small text-body-secondary mb-2">Creature</p>
+                                        <p class="small mb-3">Qty: 1</p>
+                                        <div class="mt-auto text-end">
+                                            <a href="card.html" class="btn btn-primary btn-sm">Edit</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- EVIL REAWAKENED -->
+                            <div class="col-6 col-md-4 col-xl-3">
+                                <div class="card inventory-card h-100">
+                                    <a href="card-view.html" class="card-view-link">
+                                        <img src="images/evil-reawakened.png" class="card-img-top"
+                                            alt="Evil Reawakened">
+                                    </a>
+                                    <div class="card-body d-flex flex-column">
+                                        <h3 class="h6 mb-1">Evil Reawakened</h3>
+                                        <p class="small text-body-secondary mb-2">Enchantment</p>
+                                        <p class="small mb-3">Qty: 2</p>
+                                        <div class="mt-auto text-end">
+                                            <a href="card.html" class="btn btn-primary btn-sm">Edit</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- DECKS TAB -->
+            <div class="tab-pane fade" id="decksTab">
+
+                <!-- SEARCH / ADD DECK -->
+                <div class="row mb-4">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-9">
+                        <div class="d-flex gap-3">
+                            <div class="input-group w-75">
+                                <span class="input-group-text">⌕</span>
+                                <input type="search" class="form-control" placeholder="Search your decks">
+                            </div>
+                            <a href="deck.html" class="btn btn-primary flex-shrink-0">+ Add Deck</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FILTERS / DECKS -->
+                <div class="row gx-3">
+
+                    <!-- DECK FILTERS -->
+                    <div class="col-lg-3 mb-4">
+                        <div class="filters border p-3">
+                            <h2 class="h5">Filters</h2>
+
+                            <div class="mt-3">
+                                <button
+                                    class="btn btn-outline-secondary w-100 text-start d-flex justify-content-between"
+                                    type="button" data-bs-toggle="collapse" data-bs-target="#deckColorFilter">
+                                    <span>Color</span>
+                                    <span>▼</span>
+                                </button>
+
+                                <div class="collapse" id="deckColorFilter">
+                                    <div class="border border-top-0 p-3">
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="checkbox" id="deckWhite">
+                                            <label class="form-check-label" for="deckWhite">White</label>
+                                        </div>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="checkbox" id="deckBlue">
+                                            <label class="form-check-label" for="deckBlue">Blue</label>
+                                        </div>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="checkbox" id="deckBlack">
+                                            <label class="form-check-label" for="deckBlack">Black</label>
+                                        </div>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="checkbox" id="deckRed">
+                                            <label class="form-check-label" for="deckRed">Red</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="deckGreen">
+                                            <label class="form-check-label" for="deckGreen">Green</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DECK GRID -->
+                    <section class="col-lg-9">
+                        <div class="row g-3">
+
+                            <div class="col-6 col-md-4 col-xl-3">
+                                <div class="card inventory-card h-100 shadow-sm">
+                                    <a href="deck-view.html">
+                                        <img src="images/feasting-hobbit.png" class="card-img-top"
+                                            alt="Feasting Hobbit">
+                                    </a>
+                                    <div class="card-body d-flex flex-column">
+                                        <h3 class="h6 mb-1">Hobbit Feast</h3>
+                                        <p class="small text-body-secondary mb-3">Feasting Hobbit</p>
+                                        <div class="mt-auto text-end">
+                                            <a href="deck.html" class="btn btn-primary btn-sm">Edit</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="py-4">
+        <div class="container">
+            <div class="d-flex align-items-center gap-3">
+                <img src="images/mtgword.png" alt="Magic Stash Logo" class="footer-logo">
+                <span class="h5 mb-0 fw-semibold">Magic Stash</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ADD CARD MODAL -->
+    <div class="modal fade" id="addCardModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title fs-5">Add Card</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <p class="text-body-secondary mb-4">Choose how you would like to add a card.</p>
+
+                    <div class="border p-3 mb-3">
+                        <h3 class="h6">Import Card</h3>
+                        <p class="small text-body-secondary">
+                            Import card information from an outside source.
+                        </p>
+                        <button type="button" class="btn btn-outline-primary w-100" disabled>
+                            Import Card
+                        </button>
+                        <p class="small text-body-secondary text-center mt-2 mb-0">
+                            Import feature coming soon
+                        </p>
+                    </div>
+
+                    <div class="border p-3">
+                        <h3 class="h6">Add Manually</h3>
+                        <p class="small text-body-secondary">Enter the card information yourself.</p>
+                        <a href="card.html" class="btn btn-primary w-100">Add Card Manually</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

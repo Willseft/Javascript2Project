@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Deck Editor | Magic Stash</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+    <!-- HEADER -->
+    <header class="border-bottom">
+        <div class="container py-3">
+            <div class="d-flex align-items-center gap-3">
+                <a href="index.html">
+                    <img src="images/mtg.png" alt="Magic Stash Logo" width="70" height="70">
+                </a>
+                <div>
+                    <h1 class="h4 mb-0">Magic Stash</h1>
+                    <p class="small text-body-secondary mb-0">Card & Deck Inventory</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN -->
+    <main class="container py-5 flex-grow-1">
+
+        <div class="mb-4">
+            <h2 class="mb-1">Deck Editor</h2>
+            <p class="text-body-secondary mb-0">
+                Create and organize a deck from your card collection.
+            </p>
+        </div>
+
+        <div class="card mb-5">
+            <div class="card-body p-4">
+                <div class="row g-4 align-items-start">
+
+                    <div class="col-md-3">
+                        <p class="small text-body-secondary mb-1">Commander Image</p>
+                    </div>
+
+                    <div class="col-md-9">
+                        <div class="row g-4">
+
+                            <div class="col-md-6">
+                                <label class="form-label">Deck Name</label>
+                                <input type="text" class="form-control">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Commander</label>
+                                <select class="form-select">
+                                    <option selected>Select commander</option>
+                                    <option>Feasting Hobbit</option>
+                                    <option>Vivi Ornitier</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Colors</label>
+
+                                <div class="border p-3">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" id="white">
+                                        <label class="form-check-label" for="white">White</label>
+                                    </div>
+
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" id="blue">
+                                        <label class="form-check-label" for="blue">Blue</label>
+                                    </div>
+
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" id="black">
+                                        <label class="form-check-label" for="black">Black</label>
+                                    </div>
+
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" id="red">
+                                        <label class="form-check-label" for="red">Red</label>
+                                    </div>
+
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" id="green">
+                                        <label class="form-check-label" for="green">Green</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <label class="form-label">Deck Description</label>
+                                <textarea class="form-control" rows="3"></textarea>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="d-flex justify-content-end gap-2">
+                                    <a href="index.html" class="btn btn-outline-secondary">Cancel</a>
+                                    <button class="btn btn-primary" type="button">Save Deck</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <section>
+            <h2 class="h4 mb-3">Cards in Deck</h2>
+
+            <div class="d-flex gap-3 mb-4">
+                <div class="input-group w-75">
+                    <span class="input-group-text">⌕</span>
+                    <input type="search" class="form-control" placeholder="Search cards in this deck">
+                </div>
+
+                <button class="btn btn-primary flex-shrink-0" type="button" data-bs-toggle="modal"
+                    data-bs-target="#addCardsModal">
+                    + Add Cards
+                </button>
+            </div>
+
+            <p class="text-body-secondary">You have added no cards yet.</p>
+
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="py-4">
+        <div class="container">
+            <div class="d-flex align-items-center gap-3">
+                <img src="images/mtgword.png" alt="Magic Stash Logo" class="footer-logo">
+                <span class="h5 mb-0 fw-semibold">Magic Stash</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ADD CARDS MODAL -->
+    <div class="modal fade" id="addCardsModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h2 class="modal-title fs-5">Add Cards</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">⌕</span>
+                        <input type="search" class="form-control" placeholder="Search your card collection">
+                    </div>
+
+                    <p class="text-body-secondary mb-0">
+                        Search your collection to add cards to this deck.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
