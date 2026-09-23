@@ -8,14 +8,14 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body class="d-flex flex-column min-vh-100">
+<body id="app" class="d-flex flex-column min-vh-100">
 
     <!-- HEADER -->
     <header class="border-bottom">
         <div class="container py-3">
             <div class="d-flex align-items-center gap-3">
                 <a href="index.html">
-                    <img src="images/mtg.png" alt="Magic Stash Logo" width="70" height="70">
+                    <img src="images/mtg.png" width="70" height="70">
                 </a>
                 <div>
                     <h1 class="h4 mb-0">Magic Stash</h1>
@@ -27,151 +27,114 @@
 
     <!-- MAIN -->
     <main class="container py-5 flex-grow-1">
-
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <div>
-                <h2 class="mb-1">Deck Viewer</h2>
-                <p class="text-body-secondary mb-0">View deck information and cards.</p>
+        <div v-if="selectedDeck">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h2 class="mb-1">Deck Viewer</h2>
+                    <p class="text-body-secondary mb-0">
+                        View deck information and cards.
+                    </p>
+                </div>
+                <a :href="'deck.html?id=' + selectedDeck.id" class="btn btn-primary">
+                    Edit Deck
+                </a>
             </div>
-            <a href="deck.html" class="btn btn-primary">Edit Deck</a>
-        </div>
 
-        <div class="card mb-5">
-            <div class="card-body p-4">
-                <div class="row g-4 align-items-start">
+            <div class="card mb-5">
+                <div class="card-body p-4">
+                    <div class="row g-4 align-items-start">
+                        <div class="col-md-3">
+                            <img :src="selectedDeck.image" class="img-fluid">
+                        </div>
+                        <div class="col-md-9">
+                            <div class="row g-4">
+                                <div class="col-md-6">
+                                    <p class="small text-body-secondary mb-1">Deck Name</p>
+                                    <h3 class="h4 mb-0">{{ selectedDeck.name }}</h3>
+                                </div>
 
-                    <div class="col-md-3">
-                        <img src="images/feasting-hobbit.png" class="img-fluid" alt="Feasting Hobbit">
+                                <div class="col-md-6">
+                                    <p class="small text-body-secondary mb-1">Commander</p>
+                                    <p class="mb-0">{{ selectedDeck.commander }}</p>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <p class="small text-body-secondary mb-1">Colors</p>
+                                    <p class="mb-0">{{ selectedDeck.colors.join(", ") }}</p>
+                                </div>
+
+                                <div class="col-12">
+                                    <p class="small text-body-secondary mb-1">Deck Description</p>
+                                    <p class="mb-0">{{ selectedDeck.description }}</p>
+                                </div>
+
+                            </div>
+                        </div>
+
                     </div>
+                </div>
+            </div>
 
-                    <div class="col-md-9">
-                        <div class="row g-4">
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <span class="input-group-text">⌕</span>
+                        <input type="search" class="form-control" placeholder="Search cards in this deck">
+                    </div>
+                </div>
+            </div>
 
-                            <div class="col-md-6">
-                                <p class="small text-body-secondary mb-1">Deck Name</p>
-                                <h3 class="h4 mb-0">Hobbit Feast</h3>
-                            </div>
+            <p v-if="selectedDeckCards.length === 0" class="text-body-secondary">
+                This deck has no cards yet.
+            </p>
 
-                            <div class="col-md-6">
-                                <p class="small text-body-secondary mb-1">Commander</p>
-                                <p class="mb-0">Feasting Hobbit</p>
-                            </div>
+            <div class="row g-3" v-else>
 
-                            <div class="col-md-6">
-                                <p class="small text-body-secondary mb-1">Colors</p>
-                                <p class="mb-0">Black / Green</p>
-                            </div>
-
-                            <div class="col-12">
-                                <p class="small text-body-secondary mb-1">Deck Description</p>
-                                <p class="mb-0">
-                                    A food-focused deck built around creating Food tokens and using them
-                                    to build up creatures throughout the game.
+                <div class="col-6 col-md-4 col-lg-3 col-xl-2" v-for="card in selectedDeckCards" :key="card.id">
+                    <a :href="'card-view.html?id=' + card.id" class="text-decoration-none text-body">
+                        <div class="card inventory-card h-100">
+                            <img :src="card.image" class="card-img-top">
+                            <div class="card-body d-flex flex-column">
+                                <h3 class="h6 mb-1">
+                                    {{ card.name }}
+                                </h3>
+                                <p class="small text-body-secondary mb-2">
+                                    {{ card.type }}
                                 </p>
+                                <span class="small mt-auto">
+                                    x1
+                                </span>
                             </div>
-
                         </div>
-                    </div>
+                    </a>
 
                 </div>
             </div>
-        </div>
-
-        <div class="row mb-4">
-            <div class="col-md-6">
-                <div class="input-group">
-                    <span class="input-group-text">⌕</span>
-                    <input type="search" class="form-control" placeholder="Search cards in this deck">
-                </div>
-            </div>
-        </div>
-
-        <div class="row g-3">
-
-            <!-- SOL RING -->
-            <div class="col-6 col-md-4 col-lg-3 col-xl-2">
-                <a href="card-view.html" class="text-decoration-none text-body">
-                    <div class="card inventory-card h-100">
-                        <img src="images/sol-ring.jpg" class="card-img-top" alt="Sol Ring">
-                        <div class="card-body d-flex flex-column">
-                            <h3 class="h6 mb-1">Sol Ring</h3>
-                            <p class="small text-body-secondary mb-2">Artifact</p>
-                            <span class="small mt-auto">Qty: 1</span>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <!-- LIGHTNING BOLT -->
-            <div class="col-6 col-md-4 col-lg-3 col-xl-2">
-                <a href="card-view.html" class="text-decoration-none text-body">
-                    <div class="card inventory-card h-100">
-                        <img src="images/lightning-bolt.jpg" class="card-img-top" alt="Lightning Bolt">
-                        <div class="card-body d-flex flex-column">
-                            <h3 class="h6 mb-1">Lightning Bolt</h3>
-                            <p class="small text-body-secondary mb-2">Instant</p>
-                            <span class="small mt-auto">Qty: 1</span>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <!-- COMMAND TOWER -->
-            <div class="col-6 col-md-4 col-lg-3 col-xl-2">
-                <a href="card-view.html" class="text-decoration-none text-body">
-                    <div class="card inventory-card h-100">
-                        <img src="images/command-tower.jpg" class="card-img-top" alt="Command Tower">
-                        <div class="card-body d-flex flex-column">
-                            <h3 class="h6 mb-1">Command Tower</h3>
-                            <p class="small text-body-secondary mb-2">Land</p>
-                            <span class="small mt-auto">Qty: 1</span>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <!-- VIVI ORNITIER -->
-            <div class="col-6 col-md-4 col-lg-3 col-xl-2">
-                <a href="card-view.html" class="text-decoration-none text-body">
-                    <div class="card inventory-card h-100">
-                        <img src="images/vivi-ornitter.jpg" class="card-img-top" alt="Vivi Ornitier">
-                        <div class="card-body d-flex flex-column">
-                            <h3 class="h6 mb-1">Vivi Ornitier</h3>
-                            <p class="small text-body-secondary mb-2">Creature</p>
-                            <span class="small mt-auto">Qty: 1</span>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <!-- EVIL REAWAKENED -->
-            <div class="col-6 col-md-4 col-lg-3 col-xl-2">
-                <a href="card-view.html" class="text-decoration-none text-body">
-                    <div class="card inventory-card h-100">
-                        <img src="images/evil-reawakened.png" class="card-img-top" alt="Evil Reawakened">
-                        <div class="card-body d-flex flex-column">
-                            <h3 class="h6 mb-1">Evil Reawakened</h3>
-                            <p class="small text-body-secondary mb-2">Enchantment</p>
-                            <span class="small mt-auto">Qty: 1</span>
-                        </div>
-                    </div>
-                </a>
-            </div>
 
         </div>
+
+        <p v-else class="text-body-secondary">
+            Deck not found.
+        </p>
+
     </main>
 
     <!-- FOOTER -->
     <footer class="py-4">
         <div class="container">
+
             <div class="d-flex align-items-center gap-3">
-                <img src="images/mtgword.png" alt="Magic Stash Logo" class="footer-logo">
+                <img src="images/mtgword.png" class="footer-logo">
                 <span class="h5 mb-0 fw-semibold">Magic Stash</span>
             </div>
+
         </div>
     </footer>
 
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="app.js"></script>
 
 </body>
+
 </html>

@@ -8,14 +8,14 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body class="d-flex flex-column min-vh-100">
+<body id="app" class="d-flex flex-column min-vh-100">
 
     <!-- HEADER -->
     <header class="border-bottom">
         <div class="container py-3">
             <div class="d-flex align-items-center gap-3">
                 <a href="index.html">
-                    <img src="images/mtg.png" alt="Magic Stash Logo" width="70" height="70">
+                    <img src="images/mtg.png" width="70" height="70">
                 </a>
                 <div>
                     <h1 class="h4 mb-0">Magic Stash</h1>
@@ -25,80 +25,80 @@
         </div>
     </header>
 
-
     <!-- MAIN -->
     <main class="container py-5 flex-grow-1">
 
         <div class="mb-4">
-            <h2 class="mb-1">Card Editor</h2>
-            <p class="text-body-secondary mb-0">Add a card to your collection.</p>
+            <h1>{{ editingId ? "Edit Card" : "Add Card" }}</h1>
+            <p class="text-body-secondary mb-0">
+                {{ editingId ? "Edit a card in your collection." : "Add a card to your collection." }}
+            </p>
         </div>
 
         <div class="row g-5">
 
             <div class="col-md-5 col-lg-4">
-                <button class="btn btn-outline-secondary w-100" type="button"
-                    data-bs-toggle="modal" data-bs-target="#imageModal">
+                <div class="card mb-3" v-if="newCard.image">
+                    <img :src="newCard.image">
+                </div>
+                <button class="btn btn-outline-secondary w-100" data-bs-toggle="modal" data-bs-target="#imageModal">
                     Choose Image
                 </button>
             </div>
 
             <div class="col-md-7 col-lg-8">
+
                 <div class="card">
                     <div class="card-body p-4">
-
                         <div class="mb-3">
                             <label class="form-label">Card Name</label>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" v-model="newCard.name">
                         </div>
-
                         <div class="mb-3">
                             <label class="form-label">Description</label>
-                            <textarea class="form-control" rows="3"></textarea>
+                            <textarea class="form-control" rows="3" v-model="newCard.description"></textarea>
                         </div>
-
                         <div class="mb-3">
                             <label class="form-label">Card Colors</label>
-
                             <div class="border p-3">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="white">
-                                    <label class="form-check-label" for="white">White</label>
+                                    <input class="form-check-input" type="checkbox" value="White"
+                                        v-model="newCard.colors">
+                                    <label class="form-check-label">White</label>
                                 </div>
-
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="blue">
-                                    <label class="form-check-label" for="blue">Blue</label>
+                                    <input class="form-check-input" type="checkbox" value="Blue"
+                                        v-model="newCard.colors">
+                                    <label class="form-check-label">Blue</label>
                                 </div>
-
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="black">
-                                    <label class="form-check-label" for="black">Black</label>
+                                    <input class="form-check-input" type="checkbox" value="Black"
+                                        v-model="newCard.colors">
+                                    <label class="form-check-label">Black</label>
                                 </div>
-
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="red">
-                                    <label class="form-check-label" for="red">Red</label>
+                                    <input class="form-check-input" type="checkbox" value="Red"
+                                        v-model="newCard.colors">
+                                    <label class="form-check-label">Red</label>
                                 </div>
-
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="green">
-                                    <label class="form-check-label" for="green">Green</label>
+                                    <input class="form-check-input" type="checkbox" value="Green"
+                                        v-model="newCard.colors">
+                                    <label class="form-check-label">Green</label>
                                 </div>
-
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="colorless">
-                                    <label class="form-check-label" for="colorless">Colorless</label>
+                                    <input class="form-check-input" type="checkbox" value="Colorless"
+                                        v-model="newCard.colors">
+                                    <label class="form-check-label">Colorless</label>
                                 </div>
                             </div>
                         </div>
 
                         <div class="row g-3">
-
                             <div class="col-md-6">
                                 <label class="form-label">Card Type</label>
-                                <select class="form-select">
-                                    <option selected>Select type</option>
+                                <select class="form-select" v-model="newCard.type">
+                                    <option value="">Select type</option>
                                     <option>Creature</option>
                                     <option>Artifact</option>
                                     <option>Enchantment</option>
@@ -112,8 +112,8 @@
 
                             <div class="col-md-6">
                                 <label class="form-label">Supertype</label>
-                                <select class="form-select">
-                                    <option selected>None</option>
+                                <select class="form-select" v-model="newCard.supertype">
+                                    <option>None</option>
                                     <option>Legendary</option>
                                     <option>Basic</option>
                                     <option>Snow</option>
@@ -122,9 +122,20 @@
                             </div>
 
                             <div class="col-md-6">
+                                <label class="form-label">Rarity</label>
+                                <select class="form-select" v-model="newCard.rarity">
+                                    <option value="">Select rarity</option>
+                                    <option>Common</option>
+                                    <option>Uncommon</option>
+                                    <option>Rare</option>
+                                    <option>Mythic Rare</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6">
                                 <label class="form-label">Series</label>
-                                <select class="form-select">
-                                    <option selected>Select series</option>
+                                <select class="form-select" v-model="newCard.series">
+                                    <option value="">Select series</option>
                                     <option>Foundations</option>
                                     <option>Dominaria United</option>
                                     <option>Modern Horizons 3</option>
@@ -134,8 +145,8 @@
 
                             <div class="col-md-6">
                                 <label class="form-label">Finish</label>
-                                <select class="form-select">
-                                    <option selected>Nonfoil</option>
+                                <select class="form-select" v-model="newCard.finish">
+                                    <option>Nonfoil</option>
                                     <option>Foil</option>
                                     <option>Etched</option>
                                 </select>
@@ -143,85 +154,90 @@
 
                             <div class="col-md-6">
                                 <label class="form-label">Quantity Owned</label>
-                                <input type="number" class="form-control" value="1" min="1">
+                                <input type="number" class="form-control" min="1" v-model.number="newCard.quantity">
                             </div>
 
                         </div>
 
                         <div class="d-flex justify-content-end gap-2 mt-4">
+                            <button v-if="editingId" class="btn btn-danger" @click="deleteCard">
+                                Delete Card
+                            </button>
                             <a href="index.html" class="btn btn-outline-secondary">Cancel</a>
-                            <button class="btn btn-primary" type="button"
+                            <button class="btn btn-primary" @click="editingId ? updateCard() : addCard()"
                                 data-bs-toggle="modal" data-bs-target="#savedModal">
-                                Add Card
+                                {{ editingId ? "Save Changes" : "Add Card" }}
                             </button>
                         </div>
 
                     </div>
                 </div>
-            </div>
 
+            </div>
         </div>
+
     </main>
 
     <!-- FOOTER -->
     <footer class="py-4">
         <div class="container">
             <div class="d-flex align-items-center gap-3">
-                <img src="images/mtgword.png" alt="Magic Stash Logo" class="footer-logo">
+                <img src="images/mtgword.png" class="footer-logo">
                 <span class="h5 mb-0 fw-semibold">Magic Stash</span>
             </div>
         </div>
     </footer>
 
     <!-- IMAGE MODAL -->
-    <div class="modal fade" id="imageModal" tabindex="-1">
+    <div class="modal fade" id="imageModal">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
+
                 <div class="modal-header">
                     <h2 class="modal-title fs-5">Choose Card Image</h2>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
 
                 <div class="modal-body">
-                    <label class="form-label">Upload Image</label>
-                    <input type="file" class="form-control">
+                    <label class="form-label">Image Path</label>
+                    <input type="text" class="form-control" placeholder="images/card-name.jpg" v-model="newCard.image">
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary"
-                        data-bs-dismiss="modal">
-                        Cancel
-                    </button>
-                    <button type="button" class="btn btn-primary"
-                        data-bs-dismiss="modal">
-                        Choose Image
-                    </button>
+                    <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button class="btn btn-primary" data-bs-dismiss="modal">Choose Image</button>
                 </div>
+
             </div>
         </div>
     </div>
 
     <!-- SAVED MODAL -->
-    <div class="modal fade" id="savedModal" tabindex="-1">
+    <div class="modal fade" id="savedModal">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
+
                 <div class="modal-header">
                     <h2 class="modal-title fs-5">Card Saved</h2>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
 
                 <div class="modal-body">
-                    The card has been added to your collection.
+                    The card has been saved to your collection.
                 </div>
 
                 <div class="modal-footer">
                     <a href="index.html" class="btn btn-primary">Done</a>
                 </div>
+
             </div>
         </div>
     </div>
 
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="app.js"></script>
 
 </body>
+
 </html>

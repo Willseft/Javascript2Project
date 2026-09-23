@@ -8,19 +8,20 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body class="d-flex flex-column min-vh-100">
+<body id="app" class="d-flex flex-column min-vh-100">
 
     <!-- HEADER -->
     <header class="border-bottom">
         <div class="container py-3">
             <div class="d-flex align-items-center gap-3">
                 <a href="index.html">
-                    <img src="images/mtg.png" alt="Magic Stash Logo" width="70" height="70">
+                    <img src="images/mtg.png" width="70" height="70">
                 </a>
                 <div>
                     <h1 class="h4 mb-0">Magic Stash</h1>
                     <p class="small text-body-secondary mb-0">Card & Deck Inventory</p>
                 </div>
+
             </div>
         </div>
     </header>
@@ -29,7 +30,7 @@
     <main class="container py-5 flex-grow-1">
 
         <div class="mb-4">
-            <h2 class="mb-1">Deck Editor</h2>
+            <h2 class="mb-1">{{ editingDeckId ? "Edit Deck" : "Deck Editor" }}</h2>
             <p class="text-body-secondary mb-0">
                 Create and organize a deck from your card collection.
             </p>
@@ -37,24 +38,27 @@
 
         <div class="card mb-5">
             <div class="card-body p-4">
+
                 <div class="row g-4 align-items-start">
 
                     <div class="col-md-3">
-                        <p class="small text-body-secondary mb-1">Commander Image</p>
+                        <p class="small text-body-secondary mb-1">
+                            Commander Image
+                        </p>
+                        <img v-if="newDeck.image" :src="newDeck.image" class="img-fluid">
                     </div>
 
                     <div class="col-md-9">
                         <div class="row g-4">
-
                             <div class="col-md-6">
                                 <label class="form-label">Deck Name</label>
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control" v-model="newDeck.name">
                             </div>
 
                             <div class="col-md-6">
                                 <label class="form-label">Commander</label>
-                                <select class="form-select">
-                                    <option selected>Select commander</option>
+                                <select class="form-select" v-model="newDeck.commander">
+                                    <option value="">Select commander</option>
                                     <option>Feasting Hobbit</option>
                                     <option>Vivi Ornitier</option>
                                 </select>
@@ -62,93 +66,126 @@
 
                             <div class="col-md-6">
                                 <label class="form-label">Colors</label>
-
                                 <div class="border p-3">
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" id="white">
-                                        <label class="form-check-label" for="white">White</label>
+                                        <input class="form-check-input" type="checkbox" value="White"
+                                            v-model="newDeck.colors">
+                                        <label class="form-check-label">White</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" value="Blue"
+                                            v-model="newDeck.colors">
+                                        <label class="form-check-label">Blue</label>
                                     </div>
 
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" id="blue">
-                                        <label class="form-check-label" for="blue">Blue</label>
+                                        <input class="form-check-input" type="checkbox" value="Black"
+                                            v-model="newDeck.colors">
+                                        <label class="form-check-label">Black</label>
                                     </div>
 
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" id="black">
-                                        <label class="form-check-label" for="black">Black</label>
+                                        <input class="form-check-input" type="checkbox" value="Red"
+                                            v-model="newDeck.colors">
+                                        <label class="form-check-label">Red</label>
                                     </div>
 
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" id="red">
-                                        <label class="form-check-label" for="red">Red</label>
-                                    </div>
-
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" id="green">
-                                        <label class="form-check-label" for="green">Green</label>
+                                        <input class="form-check-input" type="checkbox" value="Green"
+                                            v-model="newDeck.colors">
+                                        <label class="form-check-label">Green</label>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-12">
-                                <label class="form-label">Deck Description</label>
-                                <textarea class="form-control" rows="3"></textarea>
+                                <label class="form-label">
+                                    Deck Description
+                                </label>
+                                <textarea class="form-control" rows="3" v-model="newDeck.description"></textarea>
                             </div>
 
                             <div class="col-12">
                                 <div class="d-flex justify-content-end gap-2">
-                                    <a href="index.html" class="btn btn-outline-secondary">Cancel</a>
-                                    <button class="btn btn-primary" type="button">Save Deck</button>
+                                    <button v-if="editingDeckId" class="btn btn-danger" @click="deleteDeck">
+                                        Delete Deck
+                                    </button>
+                                    <a href="index.html" class="btn btn-outline-secondary">
+                                        Cancel
+                                    </a>
+                                    <button class="btn btn-primary" @click="editingDeckId ? updateDeck() : addDeck()">
+                                        Save Deck
+                                    </button>
                                 </div>
                             </div>
 
                         </div>
                     </div>
-
                 </div>
+
             </div>
         </div>
 
+        <!-- CARDS IN DECK -->
         <section>
-            <h2 class="h4 mb-3">Cards in Deck</h2>
-
+            <h2 class="h4 mb-3">
+                Cards in Deck
+            </h2>
             <div class="d-flex gap-3 mb-4">
                 <div class="input-group w-75">
                     <span class="input-group-text">⌕</span>
                     <input type="search" class="form-control" placeholder="Search cards in this deck">
                 </div>
-
-                <button class="btn btn-primary flex-shrink-0" type="button" data-bs-toggle="modal"
-                    data-bs-target="#addCardsModal">
+                <button class="btn btn-primary flex-shrink-0" data-bs-toggle="modal" data-bs-target="#addCardsModal">
                     + Add Cards
                 </button>
             </div>
 
-            <p class="text-body-secondary">You have added no cards yet.</p>
+            <p v-if="deckCards.length === 0" class="text-body-secondary">
+                You have added no cards yet.
+            </p>
+
+            <div class="row g-3" v-else>
+                <div class="col-6 col-md-4 col-xl-3" v-for="card in deckCards" :key="card.id">
+                    <div class="card inventory-card h-100">
+                        <img :src="card.image" class="card-img-top">
+                        <div class="card-body d-flex flex-column">
+                            <h3 class="h6 mb-1">
+                                {{ card.name }}
+                            </h3>
+                            <p class="small text-body-secondary mb-3">
+                                {{ card.type }}
+                            </p>
+                            <button class="btn btn-outline-danger btn-sm mt-auto" @click="removeCardFromDeck(card.id)">
+                                Remove
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </section>
-
     </main>
 
     <!-- FOOTER -->
     <footer class="py-4">
         <div class="container">
             <div class="d-flex align-items-center gap-3">
-                <img src="images/mtgword.png" alt="Magic Stash Logo" class="footer-logo">
+                <img src="images/mtgword.png" class="footer-logo">
                 <span class="h5 mb-0 fw-semibold">Magic Stash</span>
             </div>
         </div>
     </footer>
 
     <!-- ADD CARDS MODAL -->
-    <div class="modal fade" id="addCardsModal" tabindex="-1">
+    <div class="modal fade" id="addCardsModal">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-
                 <div class="modal-header">
-                    <h2 class="modal-title fs-5">Add Cards</h2>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    <h2 class="modal-title fs-5">
+                        Add Cards
+                    </h2>
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
 
                 <div class="modal-body">
@@ -156,17 +193,28 @@
                         <span class="input-group-text">⌕</span>
                         <input type="search" class="form-control" placeholder="Search your card collection">
                     </div>
+                    <div class="list-group">
+                        <div class="list-group-item d-flex justify-content-between align-items-center" v-for="card in cards" :key="card.id">
+                            <div>
+                                <strong>{{ card.name }}</strong>
+                                <div class="small text-body-secondary">{{ card.type }}</div>
+                            </div>
+                            <button class="btn btn-primary btn-sm" @click="addCardToDeck(card.id)">
+                                Add
+                            </button>
 
-                    <p class="text-body-secondary mb-0">
-                        Search your collection to add cards to this deck.
-                    </p>
+                        </div>
+
+                    </div>
                 </div>
-
             </div>
         </div>
+
     </div>
 
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="app.js"></script>
 
 </body>
 

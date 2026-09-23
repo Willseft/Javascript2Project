@@ -4,275 +4,118 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Card Viewer | MTG Inventory</title>
-
+    <title>Card Viewer | Magic Stash</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body class="d-flex flex-column min-vh-100">
+<body id="app" class="d-flex flex-column min-vh-100">
 
+    <!-- HEADER -->
     <header class="border-bottom">
         <div class="container py-3">
 
             <div class="d-flex align-items-center gap-3">
 
                 <a href="index.html">
-                    <img src="images/mtg.png" alt="Magic Stash Logo" width="70" height="70">
+                    <img src="images/mtg.png" width="70" height="70">
                 </a>
-
                 <div>
-                    <h1 class="h4 mb-0">
-                        Magic Stash
-                    </h1>
-
-                    <p class="small text-body-secondary mb-0">
-                        Card & Deck Inventory
-                    </p>
+                    <h1 class="h4 mb-0">Magic Stash</h1>
+                    <p class="small text-body-secondary mb-0">Card & Deck Inventory</p>
                 </div>
 
             </div>
-
         </div>
     </header>
 
     <!-- MAIN -->
     <main class="container py-5 flex-grow-1">
 
-        <div class="d-flex justify-content-between align-items-center mb-4">
-
-            <div>
-                <h2 class="mb-1">Card Viewer</h2>
-
-                <p class="text-body-secondary mb-0">
-                    View card information from your collection.
-                </p>
-            </div>
-
-            <a href="card.html" class="btn btn-primary">
-                Edit Card
-            </a>
-
-        </div>
-
-
-        <div class="row g-5">
-            <div class="col-md-5 col-lg-4">
-
-                <div class="card">
-
-                    <img src="images/sol-ring.jpg" class="img-fluid">
-
+        <div v-if="selectedCard">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h2 class="mb-1">Card Viewer</h2>
+                    <p class="text-body-secondary mb-0">
+                        View card information from your collection.
+                    </p>
                 </div>
 
+                <a :href="'card.html?id=' + selectedCard.id" class="btn btn-primary">
+                    Edit
+                </a>
+
             </div>
+            <div class="row g-5">
+                <div class="col-md-5 col-lg-4">
+                    <div class="card">
+                        <img :src="selectedCard.image">
+                    </div>
+                </div>
 
-            <div class="col-md-7 col-lg-8">
-                <div class="card h-100">
-                    <div class="card-body p-4">
+                <div class="col-md-7 col-lg-8">
+                    <div class="card h-100">
+                        <div class="card-body p-4">
+                            <div class="mb-4">
+                                <p class="small text-body-secondary mb-1">Card Name</p>
+                                <h3 class="h4">{{ selectedCard.name }}</h3>
+                            </div>
+                            <div class="mb-4">
+                                <p class="small text-body-secondary mb-1">Description</p>
+                                <p>{{ selectedCard.description }}</p>
+                            </div>
 
-                        <div class="mb-4">
-
-                            <p class="small text-body-secondary mb-1">
-                                Card Name
-                            </p>
-
-                            <h3 class="h4">
-                                Sol Ring
-                            </h3>
-
+                            <div class="row g-4">
+                                <div class="col-sm-6">
+                                    <p class="small text-body-secondary mb-1">Card Colors</p>
+                                    <p class="mb-0">{{ selectedCard.colors.join(", ") }}</p>
+                                </div>
+                                <div class="col-sm-6">
+                                    <p class="small text-body-secondary mb-1">Type</p>
+                                    <p class="mb-0">{{ selectedCard.type }}</p>
+                                </div>
+                                <div class="col-sm-6">
+                                    <p class="small text-body-secondary mb-1">Supertype</p>
+                                    <p class="mb-0">{{ selectedCard.supertype }}</p>
+                                </div>
+                                <div class="col-sm-6">
+                                    <p class="small text-body-secondary mb-1">Series</p>
+                                    <p class="mb-0">{{ selectedCard.series }}</p>
+                                </div>
+                                <div class="col-sm-6">
+                                    <p class="small text-body-secondary mb-1">Rarity</p>
+                                    <p class="mb-0">{{ selectedCard.rarity }}</p>
+                                </div>
+                                <div class="col-sm-6">
+                                    <p class="small text-body-secondary mb-1">Finish</p>
+                                    <p class="mb-0">{{ selectedCard.finish }}</p>
+                                </div>
+                                <div class="col-sm-6">
+                                    <p class="small text-body-secondary mb-1">Quantity Owned</p>
+                                    <p class="mb-0">x{{ selectedCard.quantity }}</p>
+                                </div>
+                            </div>
                         </div>
-
-
-                        <div class="mb-4">
-
-                            <p class="small text-body-secondary mb-1">
-                                Description
-                            </p>
-
-                            <p>
-                                Add two colorless mana.
-                            </p>
-
-                        </div>
-
-
-                        <div class="row g-4">
-
-                            <div class="col-sm-6">
-
-                                <p class="small text-body-secondary mb-1">
-                                    Card Colors
-                                </p>
-
-                                <p class="mb-0">
-                                    Colorless
-                                </p>
-
-                            </div>
-
-
-                            <div class="col-sm-6">
-
-                                <p class="small text-body-secondary mb-1">
-                                    Type
-                                </p>
-
-                                <p class="mb-0">
-                                    Artifact
-                                </p>
-
-                            </div>
-
-
-                            <div class="col-sm-6">
-
-                                <p class="small text-body-secondary mb-1">
-                                    Supertype
-                                </p>
-
-                                <p class="mb-0">
-                                    None
-                                </p>
-
-                            </div>
-
-
-                            <div class="col-sm-6">
-
-                                <p class="small text-body-secondary mb-1">
-                                    Series
-                                </p>
-
-                                <p class="mb-0">
-                                    Commander Masters
-                                </p>
-
-                            </div>
-
-
-                            <div class="col-sm-6">
-
-                                <p class="small text-body-secondary mb-1">
-                                    Rarity
-                                </p>
-
-                                <p class="mb-0">
-                                    Uncommon
-                                </p>
-
-                            </div>
-
-
-                            <div class="col-sm-6">
-
-                                <p class="small text-body-secondary mb-1">
-                                    Quantity Owned
-                                </p>
-
-                                <p class="mb-0">
-                                    4
-                                </p>
-
-                            </div>
-
-                        </div>
-
-
-                        <hr class="my-4">
-                        <div>
-                            <p class="small text-body-secondary mb-2">
-                                Add to Deck
-                            </p>
-                            <div class="input-group">
-
-                                <select class="form-select">
-                                    <option selected>Select a deck</option>
-                                    <option>Golgari Graveyard</option>
-                                    <option>Izzet Spellslinger</option>
-                                    <option>Mono-Red Dragons</option>
-                                </select>
-
-                                <button class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#addedToDeckModal">
-
-                                    Add
-
-                                </button>
-
-                            </div>
-
-                        </div>
-
                     </div>
 
                 </div>
-
             </div>
 
         </div>
-
     </main>
-
 
     <!-- FOOTER -->
     <footer class="py-4">
         <div class="container">
             <div class="d-flex align-items-center gap-3">
-
-                <img src="images/mtgword.png" alt="Magic Stash Logo" class="footer-logo">
-
-                <span class="h5 mb-0 fw-semibold">
-                    Magic Stash
-                </span>
-
+                <img src="images/mtgword.png" class="footer-logo">
+                <span class="h5 mb-0 fw-semibold">Magic Stash</span>
             </div>
         </div>
     </footer>
 
-
-    <!-- ADDED TO DECK MODAL -->
-    <div class="modal fade" id="addedToDeckModal" tabindex="-1">
-
-        <div class="modal-dialog modal-dialog-centered">
-
-            <div class="modal-content">
-
-                <div class="modal-header">
-
-                    <h2 class="modal-title fs-5">
-                        Card Added
-                    </h2>
-
-                    <button class="btn-close" data-bs-dismiss="modal">
-                    </button>
-
-                </div>
-
-                <div class="modal-body">
-                    The card has been added to the selected deck.
-                </div>
-
-                <div class="modal-footer">
-
-                    <button class="btn btn-primary" data-bs-dismiss="modal">
-
-                        Done
-
-                    </button>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-
-
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="app.js"></script>
 
 </body>
 
