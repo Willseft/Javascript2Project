@@ -28,153 +28,9 @@
     <!-- MAIN -->
     <main class="container py-5 flex-grow-1">
 
-        <div class="mb-4">
-            <h1>{{ editingId ? "Edit Card" : "Add Card" }}</h1>
-            <p class="text-body-secondary mb-0">
-                {{ editingId ? "Edit a card in your collection." : "Add a card to your collection." }}
-            </p>
-        </div>
-
-        <div class="row g-5">
-
-            <div class="col-md-5 col-lg-4">
-                <div class="card mb-3" v-if="newCard.image">
-                    <img :src="newCard.image">
-                </div>
-                <button class="btn btn-outline-secondary w-100" data-bs-toggle="modal" data-bs-target="#imageModal">
-                    Choose Image
-                </button>
-            </div>
-
-            <div class="col-md-7 col-lg-8">
-
-                <div class="card">
-                    <div class="card-body p-4">
-                        <div class="mb-3">
-                            <label class="form-label">Card Name</label>
-                            <input type="text" class="form-control" v-model="newCard.name">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Description</label>
-                            <textarea class="form-control" rows="3" v-model="newCard.description"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Card Colors</label>
-                            <div class="border p-3">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" value="White"
-                                        v-model="newCard.colors">
-                                    <label class="form-check-label">White</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" value="Blue"
-                                        v-model="newCard.colors">
-                                    <label class="form-check-label">Blue</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" value="Black"
-                                        v-model="newCard.colors">
-                                    <label class="form-check-label">Black</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" value="Red"
-                                        v-model="newCard.colors">
-                                    <label class="form-check-label">Red</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" value="Green"
-                                        v-model="newCard.colors">
-                                    <label class="form-check-label">Green</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" value="Colorless"
-                                        v-model="newCard.colors">
-                                    <label class="form-check-label">Colorless</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <label class="form-label">Card Type</label>
-                                <select class="form-select" v-model="newCard.type">
-                                    <option value="">Select type</option>
-                                    <option>Creature</option>
-                                    <option>Artifact</option>
-                                    <option>Enchantment</option>
-                                    <option>Instant</option>
-                                    <option>Sorcery</option>
-                                    <option>Land</option>
-                                    <option>Planeswalker</option>
-                                    <option>Battle</option>
-                                </select>
-                            </div>
-
-                            <div class="col-md-6">
-                                <label class="form-label">Supertype</label>
-                                <select class="form-select" v-model="newCard.supertype">
-                                    <option>None</option>
-                                    <option>Legendary</option>
-                                    <option>Basic</option>
-                                    <option>Snow</option>
-                                    <option>World</option>
-                                </select>
-                            </div>
-
-                            <div class="col-md-6">
-                                <label class="form-label">Rarity</label>
-                                <select class="form-select" v-model="newCard.rarity">
-                                    <option value="">Select rarity</option>
-                                    <option>Common</option>
-                                    <option>Uncommon</option>
-                                    <option>Rare</option>
-                                    <option>Mythic Rare</option>
-                                </select>
-                            </div>
-
-                            <div class="col-md-6">
-                                <label class="form-label">Series</label>
-                                <select class="form-select" v-model="newCard.series">
-                                    <option value="">Select series</option>
-                                    <option>Foundations</option>
-                                    <option>Dominaria United</option>
-                                    <option>Modern Horizons 3</option>
-                                    <option>Commander Masters</option>
-                                </select>
-                            </div>
-
-                            <div class="col-md-6">
-                                <label class="form-label">Finish</label>
-                                <select class="form-select" v-model="newCard.finish">
-                                    <option>Nonfoil</option>
-                                    <option>Foil</option>
-                                    <option>Etched</option>
-                                </select>
-                            </div>
-
-                            <div class="col-md-6">
-                                <label class="form-label">Quantity Owned</label>
-                                <input type="number" class="form-control" min="1" v-model.number="newCard.quantity">
-                            </div>
-
-                        </div>
-
-                        <div class="d-flex justify-content-end gap-2 mt-4">
-                            <button v-if="editingId" class="btn btn-danger" @click="deleteCard">
-                                Delete Card
-                            </button>
-                            <a href="index.html" class="btn btn-outline-secondary">Cancel</a>
-                            <button class="btn btn-primary" @click="editingId ? updateCard() : addCard()"
-                                data-bs-toggle="modal" data-bs-target="#savedModal">
-                                {{ editingId ? "Save Changes" : "Add Card" }}
-                            </button>
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
-        </div>
+        <card-form :card="newCard" :editing-id="editingId" @add-card="addCard" @update-card="updateCard"
+            @delete-card="deleteCard">
+        </card-form>
 
     </main>
 
@@ -236,6 +92,16 @@
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="components/SearchBar.js"></script>
+    <script src="components/Filters.js"></script>
+    <script src="components/CardItem.js"></script>
+    <script src="components/DeckItem.js"></script>
+    <script src="components/ItemList.js"></script>
+    <script src="components/CardDetails.js"></script>
+    <script src="components/DeckDetails.js"></script>
+    <script src="components/CardForm.js"></script>
+
     <script src="app.js"></script>
 
 </body>

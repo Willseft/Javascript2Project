@@ -4,21 +4,50 @@ const app = Vue.createApp({
 
         return {
 
+            cardSearch: "",
+            deckSearch: "",
+
+            selectedCard: null,
+            selectedDeck: null,
+
             selectedTypes: [],
             selectedColors: [],
+            selectedSupertypes: [],
             selectedSeries: "",
             selectedRarity: "",
             selectedFinish: "",
             selectedDeckColors: [],
-            editingId: null,
-            editingDeckId: null,
-            selectedCard: null,
-            selectedDeck: null,
+
+            colorOptions: [
+                "White",
+                "Blue",
+                "Black",
+                "Red",
+                "Green",
+                "Colorless"
+            ],
+
+            supertypeOptions: [
+                "Legendary",
+                "Basic",
+                "Snow",
+                "World"
+            ],
+
+            typeOptions: [
+                "Creature",
+                "Artifact",
+                "Enchantment",
+                "Instant",
+                "Sorcery",
+                "Land",
+                "Planeswalker",
+                "Battle"
+            ],
 
             newCard: {
                 name: "", description: "", colors: [], type: "", supertype: "None", series: "", rarity: "", finish: "Nonfoil", quantity: 1, image: ""
             },
-
             cards: [
                 {
                     id: 1,
@@ -128,13 +157,33 @@ const app = Vue.createApp({
 
         filteredCards() {
             return this.cards.filter(card => {
-                const matchesType = this.selectedTypes.length === 0 || this.selectedTypes.includes(card.type);
-                const matchesColor = this.selectedColors.length === 0 || this.selectedColors.some(color => card.colors.includes(color));
-                const matchesSeries = this.selectedSeries === "" || card.series === this.selectedSeries;
-                const matchesRarity = this.selectedRarity === "" || card.rarity === this.selectedRarity;
-                const matchesFinish = this.selectedFinish === "" || card.finish === this.selectedFinish;
+                const matchesType =
+                    this.selectedTypes.length === 0 ||
+                    this.selectedTypes.includes(card.type);
+
+                const matchesColor =
+                    this.selectedColors.length === 0 ||
+                    this.selectedColors.some(color => card.colors.includes(color));
+
+                const matchesSupertype =
+                    this.selectedSupertypes.length === 0 ||
+                    this.selectedSupertypes.includes(card.supertype);
+
+                const matchesSeries =
+                    this.selectedSeries === "" ||
+                    card.series === this.selectedSeries;
+
+                const matchesRarity =
+                    this.selectedRarity === "" ||
+                    card.rarity === this.selectedRarity;
+
+                const matchesFinish =
+                    this.selectedFinish === "" ||
+                    card.finish === this.selectedFinish;
+
                 return matchesType &&
                     matchesColor &&
+                    matchesSupertype &&
                     matchesSeries &&
                     matchesRarity &&
                     matchesFinish;
@@ -166,16 +215,16 @@ const app = Vue.createApp({
         }
 
         const savedDecks = localStorage.getItem("decks");
-        
+
         if (savedDecks) {
             this.decks = JSON.parse(savedDecks);
         }
 
-        
+
         const params = new URLSearchParams(window.location.search);
-        
+
         const id = Number(params.get("id"));
-        
+
         if (window.location.pathname.includes("card.html") && id) {
             const card = this.cards.find(card => card.id === id);
             if (card) {
@@ -313,5 +362,14 @@ const app = Vue.createApp({
         }
     }
 });
+
+app.component("search-bar", SearchBar);
+app.component("filters-component", Filters);
+app.component("card-item", CardItem);
+app.component("deck-item", DeckItem);
+app.component("item-list", ItemList);
+app.component("card-details", CardDetails);
+app.component("deck-details", DeckDetails);
+app.component("card-form", CardForm);
 
 app.mount("#app");
