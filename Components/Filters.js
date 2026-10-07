@@ -22,128 +22,140 @@ const Filters = {
     ],
 
     template: `
-        <div class="filters border p-3">
+        <div class="filters p-3">
+
             <h2 class="h5 mb-3">Filters</h2>
 
             <!-- COLOR -->
-            <div class="mb-3">
+            <div class="filter-group mb-3">
+
                 <button
-                    class="btn btn-outline-secondary w-100 text-start d-flex justify-content-between"
+                    class="filter-toggle form-select w-100 text-start"
                     type="button"
                     data-bs-toggle="collapse"
                     :data-bs-target="'#' + mode + 'ColorFilter'">
-                    <span>Color</span>
-                    <span>▼</span>
+                    Color
                 </button>
 
-                <div class="collapse show" :id="mode + 'ColorFilter'">
-                    <div class="pt-2">
+                <div
+                    class="collapse show filter-options"
+                    :id="mode + 'ColorFilter'">
 
-                        <div
-                            class="form-check"
-                            v-for="color in colorOptions"
-                            :key="color">
+                    <div
+                        class="form-check"
+                        v-for="color in colorOptions"
+                        :key="color">
 
-                            <input
-                                class="form-check-input"
-                                type="checkbox"
-                                :id="mode + color"
-                                :value="color"
-                                :checked="selectedColors.includes(color)"
-                                @change="changeColor(color)">
+                        <input
+                            class="form-check-input"
+                            type="checkbox"
+                            :id="mode + color"
+                            :value="color"
+                            :checked="selectedColors.includes(color)"
+                            @change="changeColor(color)">
 
-                            <label
-                                class="form-check-label"
-                                :for="mode + color">
-                                {{ color }}
-                            </label>
-
-                        </div>
+                        <label
+                            class="form-check-label"
+                            :for="mode + color">
+                            {{ color }}
+                        </label>
 
                     </div>
+
                 </div>
+
             </div>
 
+
             <!-- SUPERTYPE -->
-            <div class="mb-3" v-if="mode === 'cards'">
+            <div
+                class="filter-group mb-3"
+                v-if="mode === 'cards'">
+
                 <button
-                    class="btn btn-outline-secondary w-100 text-start d-flex justify-content-between"
+                    class="filter-toggle form-select w-100 text-start"
                     type="button"
                     data-bs-toggle="collapse"
                     data-bs-target="#supertypeFilter">
-                    <span>Supertype</span>
-                    <span>▼</span>
+                    Supertype
                 </button>
 
-                <div class="collapse show" id="supertypeFilter">
-                    <div class="pt-2">
+                <div
+                    class="collapse show filter-options"
+                    id="supertypeFilter">
 
-                        <div
-                            class="form-check"
-                            v-for="supertype in supertypeOptions"
-                            :key="supertype">
+                    <div
+                        class="form-check"
+                        v-for="supertype in supertypeOptions"
+                        :key="supertype">
 
-                            <input
-                                class="form-check-input"
-                                type="checkbox"
-                                :id="supertype"
-                                :value="supertype"
-                                :checked="selectedSupertypes.includes(supertype)"
-                                @change="changeSupertype(supertype)">
+                        <input
+                            class="form-check-input"
+                            type="checkbox"
+                            :id="supertype"
+                            :value="supertype"
+                            :checked="selectedSupertypes.includes(supertype)"
+                            @change="changeSupertype(supertype)">
 
-                            <label
-                                class="form-check-label"
-                                :for="supertype">
-                                {{ supertype }}
-                            </label>
-
-                        </div>
+                        <label
+                            class="form-check-label"
+                            :for="supertype">
+                            {{ supertype }}
+                        </label>
 
                     </div>
+
                 </div>
+
             </div>
 
+
             <!-- TYPE -->
-            <div class="mb-3" v-if="mode === 'cards'">
+            <div
+                class="filter-group mb-3"
+                v-if="mode === 'cards'">
+
                 <button
-                    class="btn btn-outline-secondary w-100 text-start d-flex justify-content-between"
+                    class="filter-toggle form-select w-100 text-start"
                     type="button"
                     data-bs-toggle="collapse"
                     data-bs-target="#typeFilter">
-                    <span>Type</span>
-                    <span>▼</span>
+                    Type
                 </button>
 
-                <div class="collapse show" id="typeFilter">
-                    <div class="pt-2">
+                <div
+                    class="collapse show filter-options"
+                    id="typeFilter">
 
-                        <div
-                            class="form-check"
-                            v-for="type in typeOptions"
-                            :key="type">
+                    <div
+                        class="form-check"
+                        v-for="type in typeOptions"
+                        :key="type">
 
-                            <input
-                                class="form-check-input"
-                                type="checkbox"
-                                :id="type"
-                                :value="type"
-                                :checked="selectedTypes.includes(type)"
-                                @change="changeType(type)">
+                        <input
+                            class="form-check-input"
+                            type="checkbox"
+                            :id="type"
+                            :value="type"
+                            :checked="selectedTypes.includes(type)"
+                            @change="changeType(type)">
 
-                            <label
-                                class="form-check-label"
-                                :for="type">
-                                {{ type }}
-                            </label>
-
-                        </div>
+                        <label
+                            class="form-check-label"
+                            :for="type">
+                            {{ type }}
+                        </label>
 
                     </div>
+
                 </div>
+
             </div>
+
 
             <!-- SERIES -->
             <div v-if="mode === 'cards'">
+
                 <label class="form-label">Series</label>
 
                 <select
@@ -158,11 +170,15 @@ const Filters = {
                     <option>The Hobbit</option>
                     <option>Commander Masters</option>
                     <option>Foundations</option>
+
                 </select>
+
             </div>
+
 
             <!-- RARITY -->
             <div v-if="mode === 'cards'">
+
                 <label class="form-label">Rarity</label>
 
                 <select
@@ -175,11 +191,15 @@ const Filters = {
                     <option>Uncommon</option>
                     <option>Rare</option>
                     <option>Mythic Rare</option>
+
                 </select>
+
             </div>
+
 
             <!-- FINISH -->
             <div v-if="mode === 'cards'">
+
                 <label class="form-label">Finish</label>
 
                 <select
@@ -191,13 +211,16 @@ const Filters = {
                     <option>Nonfoil</option>
                     <option>Foil</option>
                     <option>Etched</option>
+
                 </select>
+
             </div>
 
         </div>
     `,
 
     methods: {
+
         changeColor(color) {
             const colors = [...this.selectedColors];
 
@@ -233,5 +256,6 @@ const Filters = {
 
             this.$emit("typesChanged", types);
         }
+
     }
 };

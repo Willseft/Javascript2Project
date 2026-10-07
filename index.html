@@ -17,11 +17,7 @@
             <div class="container py-3">
                 <div class="d-flex align-items-center gap-3">
                     <a href="index.html">
-                        <img
-                            src="images/mtg.png"
-                            alt="Magic Stash Logo"
-                            width="70"
-                            height="70">
+                        <img src="images/mtg.png" alt="Magic Stash Logo" width="70" height="70">
                     </a>
                     <div>
                         <h1 class="h4 mb-0">Magic Stash</h1>
@@ -39,20 +35,12 @@
             <!-- CARDS + DECKS TABS -->
             <ul class="nav inventory-tabs mb-4" role="tablist">
                 <li class="nav-item">
-                    <button
-                        class="nav-link active"
-                        data-bs-toggle="tab"
-                        data-bs-target="#cardsTab"
-                        type="button">
+                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#cardsTab" type="button">
                         Cards
                     </button>
                 </li>
                 <li class="nav-item">
-                    <button
-                        class="nav-link"
-                        data-bs-toggle="tab"
-                        data-bs-target="#decksTab"
-                        type="button">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#decksTab" type="button">
                         Decks
                     </button>
                 </li>
@@ -65,12 +53,10 @@
                 <div class="tab-pane fade show active" id="cardsTab">
                     <!-- ADD CARD -->
                     <div class="mb-4">
-                        <button
-                            class="btn btn-primary"
-                            type="button"
-                            data-bs-toggle="modal"
+                        <button class="btn btn-primary add-item-btn" type="button" data-bs-toggle="modal"
                             data-bs-target="#addCardModal">
-                            + Add Card
+                            <span class="me-1">+</span>
+                            Add Card
                         </button>
                     </div>
 
@@ -79,23 +65,15 @@
                     <div class="row gx-3">
                         <!-- CARD FILTERS -->
                         <div class="col-lg-3 mb-4">
-                            <filters-component
-                                mode="cards"
-                                :selected-colors="selectedColors"
-                                :selected-supertypes="selectedSupertypes"
-                                :selected-types="selectedTypes"
-                                :selected-series="selectedSeries"
-                                :selected-rarity="selectedRarity"
-                                :selected-finish="selectedFinish"
-                                :color-options="colorOptions"
-                                :supertype-options="supertypeOptions"
-                                :type-options="typeOptions"
+                            <filters-component mode="cards" :selected-colors="selectedColors"
+                                :selected-supertypes="selectedSupertypes" :selected-types="selectedTypes"
+                                :selected-series="selectedSeries" :selected-rarity="selectedRarity"
+                                :selected-finish="selectedFinish" :color-options="colorOptions"
+                                :supertype-options="supertypeOptions" :type-options="typeOptions"
                                 @colors-changed="selectedColors = $event"
                                 @supertypes-changed="selectedSupertypes = $event"
-                                @types-changed="selectedTypes = $event"
-                                @series-changed="selectedSeries = $event"
-                                @rarity-changed="selectedRarity = $event"
-                                @finish-changed="selectedFinish = $event">
+                                @types-changed="selectedTypes = $event" @series-changed="selectedSeries = $event"
+                                @rarity-changed="selectedRarity = $event" @finish-changed="selectedFinish = $event">
                             </filters-component>
                         </div>
 
@@ -105,17 +83,13 @@
 
                             <div class="mb-4">
 
-                                <search-bar
-                                    placeholder="Search your cards"
-                                    :search-value="cardSearch"
+                                <search-bar placeholder="Search your cards" :search-value="cardSearch"
                                     @search-changed="cardSearch = $event">
                                 </search-bar>
 
                             </div>
 
-                            <item-list
-                                :items="filteredCards"
-                                mode="cards">
+                            <item-list :items="filteredCards" mode="cards">
                             </item-list>
 
                         </section>
@@ -127,165 +101,104 @@
 
                 <!-- DECKS TAB -->
                 <div class="tab-pane fade" id="decksTab">
-
                     <!-- ADD DECK -->
                     <div class="mb-4">
-
-                        <a
-                            href="deck.html"
-                            class="btn btn-primary">
+                        <a href="deck.html" class="btn btn-primary">
                             + Add Deck
                         </a>
-
                     </div>
 
 
                     <!-- FILTERS / DECKS -->
                     <div class="row gx-3">
-
                         <!-- DECK FILTERS -->
                         <div class="col-lg-3 mb-4">
-
-                            <filters-component
-                                mode="decks"
-                                :selected-colors="selectedDeckColors"
-                                :color-options="colorOptions"
-                                @colors-changed="selectedDeckColors = $event">
+                            <filters-component mode="decks" :selected-colors="selectedDeckColors"
+                                :color-options="colorOptions" @colors-changed="selectedDeckColors = $event">
                             </filters-component>
-
                         </div>
 
 
                         <!-- SEARCH / DECK GRID -->
                         <section class="col-lg-9">
-
                             <div class="mb-4">
-
-                                <search-bar
-                                    placeholder="Search your decks"
-                                    :search-value="deckSearch"
+                                <search-bar placeholder="Search your decks" :search-value="deckSearch"
                                     @search-changed="deckSearch = $event">
                                 </search-bar>
-
                             </div>
-
-                            <item-list
-                                :items="filteredDecks"
-                                mode="decks">
+                            <item-list :items="filteredDecks" mode="decks">
                             </item-list>
-
                         </section>
 
                     </div>
-
                 </div>
-
             </div>
-
         </main>
 
 
         <!-- FOOTER -->
         <footer class="py-4">
-
             <div class="container">
-
                 <div class="d-flex align-items-center gap-3">
-
-                    <img
-                        src="images/mtgword.png"
-                        alt="Magic Stash Logo"
-                        class="footer-logo">
-
+                    <img src="images/mtgword.png" alt="Magic Stash Logo" class="footer-logo">
                     <span class="h5 mb-0 fw-semibold">
                         Magic Stash
                     </span>
-
                 </div>
-
             </div>
-
         </footer>
 
 
         <!-- ADD CARD MODAL -->
-        <div
-            class="modal fade"
-            id="addCardModal"
-            tabindex="-1">
-
+        <div class="modal fade" id="addCardModal" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
-
                 <div class="modal-content">
-
                     <div class="modal-header">
-
                         <h2 class="modal-title fs-5">
                             Add Card
                         </h2>
-
                     </div>
 
 
                     <div class="modal-body">
-
                         <p class="text-body-secondary mb-4">
                             Choose how you would like to add a card.
                         </p>
 
-
                         <!-- IMPORT CARD -->
                         <div class="border p-3 mb-3">
-
                             <h3 class="h6">
                                 Import Card
                             </h3>
-
                             <p class="small text-body-secondary">
                                 Import card information from an outside source.
                             </p>
-
-                            <button
-                                type="button"
-                                class="btn btn-outline-primary w-100"
-                                disabled>
+                            <button type="button" class="btn btn-outline-primary w-100" disabled>
                                 Import Card
                             </button>
-
                             <p class="small text-body-secondary text-center mt-2 mb-0">
                                 Import feature coming soon
                             </p>
-
                         </div>
 
 
                         <!-- ADD MANUALLY -->
                         <div class="border p-3">
-
                             <h3 class="h6">
                                 Add Manually
                             </h3>
-
                             <p class="small text-body-secondary">
                                 Enter the card information yourself.
                             </p>
-
-                            <a
-                                href="card.html"
-                                class="btn btn-primary w-100">
+                            <a href="card.html" class="btn btn-primary w-100">
                                 Add Card Manually
                             </a>
-
                         </div>
 
                     </div>
-
                 </div>
-
             </div>
-
         </div>
-
     </div>
 
 

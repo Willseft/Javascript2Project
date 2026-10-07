@@ -1,6 +1,6 @@
 // COLORS
 $primary: #188274;
-$secondary: #8B95C9;
+$secondary: #1c2762;
 $dark: #2D3047;
 $light: #EFF1ED;
 
@@ -19,6 +19,8 @@ $modal-content-bg: white;
 
 @import "../node_modules/bootstrap/scss/bootstrap";
 
+
+// HEADER / FOOTER
 header,
 footer {
     background-color: $dark;
@@ -34,11 +36,18 @@ footer {
 }
 
 
+// INVENTORY CARDS
 .inventory-card {
-    transition: transform .2s;
+    background-color: white;
+    border: 0;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba($dark, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
 
     &:hover {
-        transform: translateY(-3px); 
+        transform: translateY(-3px);
+        box-shadow: 0 5px 12px rgba($dark, 0.15);
     }
 
     .card-img-top {
@@ -46,18 +55,28 @@ footer {
         aspect-ratio: 5 / 7;
         object-fit: cover;
     }
-}
 
+    .card-body {
+        padding: 1rem;
+    }
 
-.filters {
-    background-color: $light;
+    h3 {
+        font-weight: 600;
+    }
 
-    .btn-outline-secondary {
-        background-color: $white;
+    .btn {
+        padding: 0.35rem 0.75rem;
     }
 }
 
+.card-name {
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid rgba($dark, 0.15);
+}
 
+
+// NAV TABS
 .nav-tabs {
     .nav-link {
         color: $dark;
@@ -68,17 +87,22 @@ footer {
     }
 }
 
+
+// TABS
 .inventory-tabs {
     display: inline-flex;
-    gap: 0.5rem;
-    padding: 0.35rem;
+    gap: 0.25rem;
+    padding: 0.3rem;
     background-color: white;
-    border: 1px solid $secondary;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 6px rgba($dark, 0.1);
 
     .nav-link {
         color: $dark;
         border: 0;
-        padding: 0.6rem 1.25rem;
+        border-radius: 0.35rem;
+        padding: 0.6rem 1.5rem;
+        font-weight: 500;
 
         &:hover {
             background-color: $light;
@@ -88,5 +112,82 @@ footer {
             background-color: $primary;
             color: white;
         }
+    }
+}
+
+
+// ADD CARD / ADD DECK
+.add-item-btn {
+    padding: 0.65rem 1.25rem;
+    font-weight: 600;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 6px rgba($dark, 0.15);
+    transition: transform 0.2s, box-shadow 0.2s;
+
+    &:hover {
+        box-shadow: 0 4px 8px rgba($dark, 0.18);
+    }
+}
+
+
+// FILTER PANEL
+// FILTER PANEL
+.filters {
+    background-color: white;
+    border: 0 !important;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 8px rgba($dark, 0.1);
+
+    h2 {
+        font-weight: 600;
+    }
+
+    .filter-group {
+        background-color: white;
+        border: 1px solid rgba($secondary, 0.45);
+        border-radius: 0.5rem;
+        overflow: hidden;
+    }
+
+    .filter-toggle {
+        background-color: white;
+        color: $dark;
+        border: 0;
+        border-radius: 0;
+        min-height: 42px;
+        padding: 0.5rem 1rem;
+        font-weight: 400;
+
+        &:hover {
+            background-color: $light;
+        }
+    }
+
+    .filter-options {
+        background-color: white;
+        border: 0;
+        padding: 0.75rem 1rem 1rem;
+
+        .form-check {
+            margin-bottom: 0.35rem;
+        }
+
+        .form-check-input {
+            border-color: rgba($secondary, 0.55);
+
+            &:checked {
+                background-color: $primary;
+                border-color: $primary;
+            }
+        }
+    }
+
+    .form-select {
+        background-color: white;
+        color: $dark;
+        border: 1px solid rgba($secondary, 0.45);
+        border-radius: 0.5rem;
+        min-height: 42px;
+        padding: 0.5rem 2.25rem 0.5rem 0.75rem;
     }
 }

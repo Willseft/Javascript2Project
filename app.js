@@ -157,6 +157,10 @@ const app = Vue.createApp({
 
         filteredCards() {
             return this.cards.filter(card => {
+
+                const matchesSearch =
+                    card.name.toLowerCase().includes(this.cardSearch.toLowerCase());
+
                 const matchesType =
                     this.selectedTypes.length === 0 ||
                     this.selectedTypes.includes(card.type);
@@ -181,7 +185,8 @@ const app = Vue.createApp({
                     this.selectedFinish === "" ||
                     card.finish === this.selectedFinish;
 
-                return matchesType &&
+                return matchesSearch &&
+                    matchesType &&
                     matchesColor &&
                     matchesSupertype &&
                     matchesSeries &&
